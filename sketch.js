@@ -8,8 +8,8 @@ var foodObj;
 var feed, lastFed
 
 function preload(){
-sadDog=loadImage("Dog.png");
-happyDog=loadImage("happy dog.png")
+sadDog=loadImage("images/dogImg.png");
+happyDog=loadImage("images/dogImg1.png");
 }
 	
 function setup() {
