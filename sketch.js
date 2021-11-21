@@ -8,8 +8,8 @@ var foodObj;
 var feed, lastFed
 
 function preload(){
-sadDog=loadImage("images/dogImg.png");
-happyDog=loadImage("images/dogImg1.png");
+Dog=loadImage("images/dogImg.png");
+Dog1=loadImage("images/dogImg1.png");
 }
 	
 function setup() {
@@ -49,8 +49,50 @@ function draw() {
 lastFed=data.val()
   })
 
-  drawSprites();
-  //add styles here
+  
+  //write code to read fedtime value from the database
+
+fill(255,255,255);
+
+if(lastFed>=12){
+  text("Last Feed:"+lastFed%12+"PM,350,30");
+}else if(lastFed===0){
+  text("Last Feed: 12 AM",350,30)
+}else{
+  text("Last Feed:"+ lastFed+"AM",350,30)
+}
+
+
+drawSprites();
+}
+
+//function to read food Stock
+function redStock(data){
+foodS=data.val();
+foodObj.updateFoodStock(foodS);
+}
+
+
+function feedDog(){
+dog.addImage(happyDog);
+
+//write code here to update food stock and last fed time
+var food_stock_val = foodObj.getFoodStock();
+if(food_stock_val <= 0){
+   foodObj.updateFoodStock(food_stock_val * 0);
+}else{
+foodObj.updateFoodStock(food_stock_val -1);
+}
+
+database.ref('/').update({
+Food:foodObj.getFoodStock(),
+   FeedTime:hour()
+
+})
+
+}
+
+
 
 }
 
